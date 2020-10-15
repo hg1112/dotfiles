@@ -40,3 +40,4 @@ noremap <C-h> <C-w>h
 
 "" terminal
 nnoremap <silent> <leader>sh :terminal<CR>
+tnoremap <Esc> <C-\><C-n>
