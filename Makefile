@@ -1,34 +1,28 @@
+config:
+	@mkdir -p ~/.config
 git:
-	@pacman -S --needed git
+	sudo pacman -S --needed git
+	git config --global user.name "karna"
+	git config --global user.email "harishgontu@gmail.com"
+	git config --global pull.rebase true
 
 shell:
-	@pacman -S --needed fish tmux
+	sudo pacman -S --needed fish tmux bash
 
-awesome:
-	@pacman -S --needed awesome
-	@ln -s $(CURDIR)/awesome/ ~/.config/awesome/
+awesome: config
+	sudo pacman -S --needed awesome
+	ln -sf $(CURDIR)/awesome/ ~/.config/awesome
 
 python: shell
-	@curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh | fish
+	bash install-conda.sh
 
-neovim:
-	@pacman -S --needed base-devel cmake unzip ninja tree-sitter
-	@git clone git@github.com:neovim/neovim.git ~/apps/neovim
-	@make -C ~/apps/neovim CMAKE_BUILD_TYPE=Release
-	@make -C ~/apps/neovim install
-	@ln -s $(CURDIR)/nvim/ ~/.config/nvim/
+neovim:	git config
+	bash build-neovim.sh
 
 vscode:	git
-	@git clone https://AUR.archlinux.org/visual-studio-code-bin.git ~/apps/vscode
-	@makepkg -C ~/apps/vscode -s
-	@pacman -U ~/apps/vscode-*.pkg.tar.xz
+	bash install-vscode.sh
 
 scala:
-	@curl -fLo cs https://git.io/coursier-cli-"$(uname | tr LD ld)"
-	@chmod +x cs
-	@./cs install cs
-	@rm cs
+	bash install-coursier.sh
 
 all:	git shell awesome python neovim scala
-
-
