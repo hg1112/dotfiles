@@ -10,14 +10,15 @@ shell:
 	sudo pacman -S --needed fish tmux bash
 
 awesome: config
-	sudo pacman -S --needed awesome
-	ln -sf $(CURDIR)/awesome/ ~/.config/awesome
+	sudo pacman -S --needed awesome nitrogen picom
+	ln -sfT $(CURDIR)/awesome ~/.config/awesome
 
 python: shell
 	bash install-conda.sh
 
 neovim:	git config
 	bash build-neovim.sh
+	ln -sfT $(CURDIR)/nvim ~/.config/nvim
 
 vscode:	git
 	bash install-vscode.sh

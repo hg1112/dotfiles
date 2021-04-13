@@ -9,6 +9,3 @@ sudo make -C ~/apps/neovim CMAKE_BUILD_TYPE=Release
 
 echo "Install nvim ..."
 sudo make -C ~/apps/neovim install
-
-echo "Link neovim config ..."
-ln -sf $(CURDIR)/nvim/ ~/.config/nvim
