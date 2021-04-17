@@ -18,7 +18,7 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
---local menubar       = require("menubar")
+local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
@@ -97,14 +97,14 @@ local themes = {
     "vertex"           -- 10
 }
 
-local chosen_theme = themes[4]
+local chosen_theme = themes[7]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "alacritty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local browser      = "librewolf"
+local browser      = "firefox" -- librewolf
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
@@ -198,10 +198,10 @@ local mymainmenu = freedesktop.menu.build {
 }
 
 -- hide menu when mouse leaves it
---mymainmenu.wibox:connect_signal("mouse::leave", function() mymainmenu:hide() end)
+mymainmenu.wibox:connect_signal("mouse::leave", function() mymainmenu:hide() end)
 
 -- Set the Menubar terminal for applications that require it
---menubar.utils.terminal = terminal
+menubar.utils.terminal = terminal
 
 -- }}}
 
@@ -508,10 +508,10 @@ globalkeys = mytable.join(
               {description = "run browser", group = "launcher"}),
 
     -- Default
-    --[[ Menubar
+    -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
-    --]]
+              {description = "show the menubar", group = "launcher"}),
+
     --[[ dmenu
     awful.key({ modkey }, "x", function ()
             os.execute(string.format("dmenu_run -i -fn 'Monospace' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
@@ -542,7 +542,7 @@ globalkeys = mytable.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"})
-    --]]
+    --
 )
 
 clientkeys = mytable.join(
@@ -797,4 +797,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 beautiful.useless_gap = 5
 
 
-awful.spawn.with_shell( string.format("nitrogen --set-zoom-fill --random %s/.config/awesome/wallpapers", os.getenv("HOME")))
+awful.spawn.with_shell(string.format("sh %s/.config/awesome/autorun.sh", os.getenv("HOME")))
