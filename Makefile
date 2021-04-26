@@ -6,6 +6,9 @@ config:
 	@ln -sfT $(CURDIR)/nvim ~/.config/nvim
 	@ln -sfT $(CURDIR)/fish ~/.config/fish
 
+fonts:
+	@yay -S --needed nerd-fonts-complete
+
 git:
 	@sudo pacman -S --needed git
 	@git config --global user.name "karna"
@@ -39,5 +42,8 @@ scala:
 
 neofetch: shell
 	@yay -S neofetch
+
+node:
+	@sudo pacman -S --needed nodejs npm
 
 all:	git shell awesome python neovim scala aur image sdkman neofetch
